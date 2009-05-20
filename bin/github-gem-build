@@ -1,0 +1,51 @@
+#!/usr/bin/env ruby
+if ARGV.size != 2
+  puts "Usage: github-gem-build owner repository"
+  exit
+end
+
+# Grab the params
+owner = ARGV[0]
+repo = ARGV[1]
+
+raise "You're not doing it right" if owner.empty? || repo.empty?
+
+puts "Cloning git://github.com/#{owner}/#{repo}.git"
+system "git clone git://github.com/#{owner}/#{repo}.git github-build-tmp"
+tmpdir = File.expand_path('github-build-tmp')
+Dir.chdir(tmpdir)
+gemspec = `ls *.gemspec`.chomp
+raise "Could not find the gem specification" if gemspec.nil? || gemspec.empty?
+
+require 'rubygems/specification'
+data = File.read(gemspec)
+spec = nil
+
+# Copying github's safe environment test 
+puts "Reading specification"
+if data !~ %r{!ruby/object:Gem::Specification}
+  Thread.new { spec = eval("$SAFE = 3\n#{data}") }.join
+else
+  spec = YAML.load(data)
+end
+ 
+# Try to validate it real quick
+puts "Validating specification"
+spec.name = "#{owner}-#{spec.name}"
+spec.validate
+version = spec.version
+
+# Save with changes
+File.open(gemspec, 'w') do |out|
+  YAML.dump(spec, out)
+end
+
+puts "Building gem"
+system "gem build #{gemspec}"
+puts "Installing gem"
+system "sudo gem install #{spec.name}-#{version}.gem"
+puts "Cleaning up"
+Dir.chdir(File.join(tmpdir, '..'))
+`rm -rf github-build-tmp`
+
+puts "Done, #{owner}-#{repo}-#{version} installed"

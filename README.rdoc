@@ -1,6 +1,7 @@
 = github-gem-build
 
-Description goes here.
+This is a quick utility to allow you to locally build and install gems from 
+Github repositories when they are not building correctly. 
 
 == Copyright
 

@@ -4,10 +4,10 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "github-gem-build"
+    gem.name = "test"
     gem.summary = %Q{TODO}
     gem.email = "jeff@baobabhealth.org"
-    gem.homepage = "http://github.com/jeffrafter/github-gem-build"
+    gem.homepage = "http://github.com/jeffrafter/test"
     gem.authors = ["Jeff Rafter"]
 
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
@@ -49,7 +49,7 @@ Rake::RDocTask.new do |rdoc|
   end
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "github-gem-build #{version}"
+  rdoc.title = "test #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
