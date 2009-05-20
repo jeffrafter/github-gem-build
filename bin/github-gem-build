@@ -14,10 +14,12 @@ puts "Cloning git://github.com/#{owner}/#{repo}.git"
 system "git clone git://github.com/#{owner}/#{repo}.git github-build-tmp"
 tmpdir = File.expand_path('github-build-tmp')
 Dir.chdir(tmpdir)
-gemspec = `ls *.gemspec`.chomp
-raise "Could not find the gem specification" if gemspec.nil? || gemspec.empty?
+gemspecs = Dir['*.gemspec']
+raise "Could not find the gem specification" if gemspecs.nil? || gemspecs.empty?
+raise "Tell the gem author to make up their mind, they have too many gemspecs" if gemspecs.size > 1
 
 require 'rubygems/specification'
+gemspec = gemspecs[0]
 data = File.read(gemspec)
 spec = nil
 
