@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{github-gem-build}
-  s.version = "0.0.3"
+  s.version = "0.0.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jeff Rafter"]
-  s.date = %q{2009-05-19}
+  s.date = %q{2009-05-22}
   s.default_executable = %q{github-gem-build}
   s.email = %q{jeff@baobabhealth.org}
   s.executables = ["github-gem-build"]

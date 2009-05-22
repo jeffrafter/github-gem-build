@@ -3,6 +3,30 @@
 This is a quick utility to allow you to locally build and install gems from 
 Github repositories when they are not building correctly. 
 
+The script simply clones a repository, changes the gemspec so that the name 
+matches what GitHub would use (with the repository owner name prefixed), builds 
+the gem locally and installs. All this with a simple command:
+
+  github-gem-build owner repository
+
+It also validates the gemspec using the same code that GitHub recommends for 
+testing if you are having problems. 
+
+== Things to do
+
+Make it work properly on Windows (removing the sudo call if it is running on 
+Windows, fixing the fact that File.join uses '/')
+
+Support multiple gem versions based on tag or repository history and gemspec
+changes.
+
+== Intall
+
+I packaged it as a gem so that you could just install it through the gem install command:
+
+  sudo gem install jeffrafter-github-gem-build
+  
+  
 == Copyright
 
 Copyright (c) 2009 Jeff Rafter. See LICENSE for details.
